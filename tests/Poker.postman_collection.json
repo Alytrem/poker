@@ -1,0 +1,618 @@
+{
+	"info": {
+		"_postman_id": "a83ee64e-476c-42c4-9501-5fcff9554580",
+		"name": "Poker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Compare - Tie",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecea55bb-b8eb-4f3a-a5ef-f610f0ec1179",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var isJSON = postman.getResponseHeader(\"Content-Type\").indexOf(\"json\") > 1;",
+							"tests[\"Is JSON\"] = isJSON;",
+							"if(isJSON){",
+							"    var data = JSON.parse(responseBody);",
+							"    tests[\"is tie\"] = (data.result === 3);",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hand1\": \"KS 2H 5C JD TD\",\n    \"hand2\": \"KS 2H 5C JD TD\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/pokerhand",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pokerhand"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Compare - Win",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "235e9b0c-556f-4d3b-b566-564307aac9fb",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var isJSON = postman.getResponseHeader(\"Content-Type\").indexOf(\"json\") > 1;",
+							"tests[\"Is JSON\"] = isJSON;",
+							"if(isJSON){",
+							"    var data = JSON.parse(responseBody);",
+							"    tests[\"win\"] = (data.result === 1);",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hand1\": \"2C 2D KC 2H 2S\",\n    \"hand2\": \"KS 2H KD 2C 2D\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/pokerhand",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pokerhand"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Compare - Lose",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1e9fed0f-2453-4e28-a859-3832962f5e0e",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var isJSON = postman.getResponseHeader(\"Content-Type\").indexOf(\"json\") > 1;",
+							"tests[\"Is JSON\"] = isJSON;",
+							"if(isJSON){",
+							"    var data = JSON.parse(responseBody);",
+							"    tests[\"Lose\"] = (data.result === 2);",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hand1\": \"KS 5H 5C KC TD\",\n    \"hand2\": \"AD TD KD QD JD\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/pokerhand",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pokerhand"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PAIR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2e77c032-43a2-4a5a-88f9-af3a6fbef776",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var isJSON = postman.getResponseHeader(\"Content-Type\").indexOf(\"json\") > 1;",
+							"tests[\"Is JSON\"] = isJSON;",
+							"if(isJSON){",
+							"    var data = JSON.parse(responseBody);",
+							"    tests[\"Hand 2 is valid\"] = data.hand2Figure === \"PAIR\";",
+							"    tests[\"Hand 1 is valid\"] = data.hand1Figure === \"PAIR\";",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hand1\": \"KS 2H 5C KC TD\",\n    \"hand2\": \"KS 2H 5C JD 2D\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/pokerhand",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pokerhand"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TWOPAIRS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0825ec73-4933-4cda-a930-dd37c392f964",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var isJSON = postman.getResponseHeader(\"Content-Type\").indexOf(\"json\") > 1;",
+							"tests[\"Is JSON\"] = isJSON;",
+							"if(isJSON){",
+							"    var data = JSON.parse(responseBody);",
+							"    tests[\"Hand 2 is valid\"] = data.hand2Figure === \"TWOPAIRS\";",
+							"    tests[\"Hand 1 is valid\"] = data.hand1Figure === \"TWOPAIRS\";",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hand1\": \"KS 5H 5C KC TD\",\n    \"hand2\": \"KS 2H KD JD 2D\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/pokerhand",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pokerhand"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "THREEOFAKIND",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ffa6c303-0713-41b9-a37a-8ac468cb3604",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var isJSON = postman.getResponseHeader(\"Content-Type\").indexOf(\"json\") > 1;",
+							"tests[\"Is JSON\"] = isJSON;",
+							"if(isJSON){",
+							"    var data = JSON.parse(responseBody);",
+							"    tests[\"Hand 2 is valid\"] = data.hand2Figure === \"THREEOFAKIND\";",
+							"    tests[\"Hand 1 is valid\"] = data.hand1Figure === \"THREEOFAKIND\";",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hand1\": \"KS KD 5C KC TD\",\n    \"hand2\": \"KS 2H 3D 2C 2D\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/pokerhand",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pokerhand"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FULLHOUSE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a90f71ce-991b-4a06-a906-6239508de44c",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var isJSON = postman.getResponseHeader(\"Content-Type\").indexOf(\"json\") > 1;",
+							"tests[\"Is JSON\"] = isJSON;",
+							"if(isJSON){",
+							"    var data = JSON.parse(responseBody);",
+							"    tests[\"Hand 2 is valid\"] = data.hand2Figure === \"FULLHOUSE\";",
+							"    tests[\"Hand 1 is valid\"] = data.hand1Figure === \"FULLHOUSE\";",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hand1\": \"KS KD TD KC TD\",\n    \"hand2\": \"KS 2H KD 2C 2D\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/pokerhand",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pokerhand"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "STRAIGHT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22c147a5-84b4-4cd9-b0c5-5cb881d4ebd5",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var isJSON = postman.getResponseHeader(\"Content-Type\").indexOf(\"json\") > 1;",
+							"tests[\"Is JSON\"] = isJSON;",
+							"if(isJSON){",
+							"    var data = JSON.parse(responseBody);",
+							"    tests[\"Hand 2 is valid\"] = data.hand2Figure === \"STRAIGHT\";",
+							"    tests[\"Hand 1 is valid\"] = data.hand1Figure === \"STRAIGHT\";",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hand1\": \"2C 3D 5D 4H 6H\",\n    \"hand2\": \"KS JS QH TC 9C\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/pokerhand",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pokerhand"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FLUSH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4d45444b-837f-4049-b6cf-1b357415d7ec",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var isJSON = postman.getResponseHeader(\"Content-Type\").indexOf(\"json\") > 1;",
+							"tests[\"Is JSON\"] = isJSON;",
+							"if(isJSON){",
+							"    var data = JSON.parse(responseBody);",
+							"    tests[\"Hand 2 is valid\"] = data.hand2Figure === \"FLUSH\";",
+							"    tests[\"Hand 1 is valid\"] = data.hand1Figure === \"FLUSH\";",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hand1\": \"2C 6C KC QC TC\",\n    \"hand2\": \"JD 3D 5D AD 8D\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/pokerhand",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pokerhand"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FOUROFAKIND",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abf9252f-4eb3-41fe-aa3a-e34d8e2b3f8e",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var isJSON = postman.getResponseHeader(\"Content-Type\").indexOf(\"json\") > 1;",
+							"tests[\"Is JSON\"] = isJSON;",
+							"if(isJSON){",
+							"    var data = JSON.parse(responseBody);",
+							"    tests[\"Hand 2 is valid\"] = data.hand2Figure === \"FOUROFAKIND\";",
+							"    tests[\"Hand 1 is valid\"] = data.hand1Figure === \"FOUROFAKIND\";",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hand1\": \"2C 2D KC 2H 2S\",\n    \"hand2\": \"TS 3D TD TH TC\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/pokerhand",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pokerhand"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "STRAIGHTFLUSH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d8b2b3f1-6516-4cac-a2d0-f49c2f040627",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var isJSON = postman.getResponseHeader(\"Content-Type\").indexOf(\"json\") > 1;",
+							"tests[\"Is JSON\"] = isJSON;",
+							"if(isJSON){",
+							"    var data = JSON.parse(responseBody);",
+							"    tests[\"Hand 2 is valid\"] = data.hand2Figure === \"STRAIGHTFLUSH\";",
+							"    tests[\"Hand 1 is valid\"] = data.hand1Figure === \"STRAIGHTFLUSH\";",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hand1\": \"4C 5C 7C 6C 8C\",\n    \"hand2\": \"TD 9D KD QD JD\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/pokerhand",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pokerhand"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ROYALFLUSH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d00fa689-2717-43df-8ef7-239940326e4c",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var isJSON = postman.getResponseHeader(\"Content-Type\").indexOf(\"json\") > 1;",
+							"tests[\"Is JSON\"] = isJSON;",
+							"if(isJSON){",
+							"    var data = JSON.parse(responseBody);",
+							"    tests[\"Hand 2 is valid\"] = data.hand2Figure === \"ROYALFLUSH\";",
+							"    tests[\"Hand 1 is valid\"] = data.hand1Figure === \"ROYALFLUSH\";",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hand1\": \"TC AC JC KC QC\",\n    \"hand2\": \"AD TD KD QD JD\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/pokerhand",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pokerhand"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

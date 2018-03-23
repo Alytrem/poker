@@ -1,0 +1,32 @@
+{
+  "name": "poker",
+  "version": "0.0.0",
+  "description": "A poker hand comparator REST WS",
+  "main": "./",
+  "license": "ISC",
+  "author": {
+    "name": "Quentin Decré",
+    "email": "quentin.decre@outlook.com",
+    "url": "http://www.quentin-decre.fr"
+  },
+  "scripts": {
+    "restore-global": "npm install -g typescript tslint typings nodemon",
+    "restore-local": "npm install  && typings i",
+    "restore-all": "npm run restore-global && npm run restore-local",
+    "build": "npm run build-ts && npm run tslint && echo Build finished!",
+    "build-ts": "tsc",
+    "build-watch": "tsc -w",
+    "tslint": "tslint -c tslint.json -p tsconfig.json --force",
+    "docker-run": "npm run build && docker-compose -f docker-compose.yml -f docker-compose.debug.yml build && docker-compose -f docker-compose.yml -f docker-compose.debug.yml up -d --remove-orphans --build --force-recreate",
+    "docker-watch": "npm run docker-run && npm run build-watch",
+    "docker-stop": "docker-compose -f docker-compose.yml -f docker-compose.debug.yml down && echo Docker Compose Down finished!",
+    "docker-stop-cleanup": "docker-compose -f docker-compose.yml -f docker-compose.debug.yml down -v --remove-orphans",
+    "docker-cleanup": "npm run docker-stop-cleanup && docker rmi poker-api poker-api-livedebug poker-api-base || echo Cleanup finished!"
+  },
+  "dependencies": {
+    "restify": "^6.3.4"
+  },
+  "devDependencies": {
+    "@types/restify": "^5.0.7"
+  }
+}
